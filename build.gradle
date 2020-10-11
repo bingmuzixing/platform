@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url "https://repo.spring.io/plugins-release" }
+    }
+    dependencies {
+        // 让spring-boot支持gradle
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+    }
+}
+// 指定要应用的插件和版本
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.3.3.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+}
+
+// 指定下载的仓库地址
+allprojects {
+    repositories {
+        //加上阿里云镜像
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url "https://repo.spring.io/plugins-release" }
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://repo.spring.io/release" }
+    }
+}
+
+group 'com.bmzx'
+
+// 指定依赖版本
+//ext.spring_cloud_version = "Greenwich.RELEASE"
+ext['lombok.version'] = "1.18.4"
+
+// 应用于所有依赖的子项目
+subprojects {
+    version 'V1.0'
+    // 应用插件
+    apply plugin: "java"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    // 设置编译和运行的jre兼容版本
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    /* java编译的时候缺省状态下会因为中文字符而失败 */
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    // 字符编码处理
+    def defaultEncoding = 'UTF-8'
+    tasks.withType(AbstractCompile).each { it.options.encoding = defaultEncoding }
+
+    // Java编译任务依赖处理资源的任务
+    compileJava.dependsOn(processResources)
+
+    // 指定要运行测试的包
+    test {
+        include "**/repository/**", "**/service/**", "**/controller/**"
+    }
+
+
+    configurations {
+        compile.exclude module: 'spring-boot-starter-logging'//排除对默认logging的依赖
+
+    }
+
+
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        compile group: 'io.netty', name: 'netty-all', version: '4.1.15.Final'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        //添加对log4j starter的依赖。
+        compile("org.springframework.boot:spring-boot-starter-log4j:1.3.7.RELEASE")
+        compile 'com.alibaba:druid:1.1.18'
+        runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+        compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'//热部署
+        //增加相关支持jsp访问
+        compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+        compile("javax.servlet:jstl")
+        //增加netty
+        compile('io.netty:netty-all:4.1.44.Final')
+    }
+}

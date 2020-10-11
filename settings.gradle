@@ -1,0 +1,5 @@
+rootProject.name = 'platform'
+include 'platform-core'
+include 'platform-oauth'
+include 'platform-gateway'
+

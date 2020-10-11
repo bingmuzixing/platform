@@ -1,0 +1,27 @@
+{
+  "moduleName": "模块名称",
+  "moduleServId": "模块全局唯一标识",
+  "moduleMethod": [
+    {"methodName": "save","showName": "保存","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "edit","showName": "编辑","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "update","showName": "更新","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "delete","showName": "删除","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "batchSave","showName": "批量保存","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "batchUpdate","showName": "批量更新","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "batchDelete","showName": "批量删除","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "imp","showName": "导入","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "exprot","showName": "导出","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "load","showName": "加载","display": "","displayPos": ["btnTool","table"]},
+    {"methodName": "list","showName": "查询列表","display": "","displayPos": ["btnTool","table"]}  ,
+    {"methodName": "query","showName": "查询","display": "","displayPos": ["btnTool","table"]}
+  ],
+  "moduleMainTable": [
+    {"fieldName": "ID","fieldShowName": "主键字段在页面上显示名字","displayFrom": "none","pos": "1这是字段排序位置","dataType": "数据类型，比如说是字符串，还是数字，还是邮件，还是微信，还是身份证号","rule": "增加规则","fieldType": "pk","displayTable": "none"},
+    {"fieldName": "FATHER_ID","fieldShowName": "父节点","displayFrom": "none","pos": "1","dataType": "","rule": "","fieldType": "fk（主键）","displayTable": "none"}
+  ],
+  "moduleExtendTables": [
+    {"extendTable": ""}
+  ]
+
+
+}
