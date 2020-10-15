@@ -1,7 +1,8 @@
 package com.bmzx.platform.core.ui.controller;
 
 
-import com.bmzx.platform.core.application.controller.PlatformCommonControllerService;
+import com.bmzx.platform.core.application.PlatformApplicationFactory;
+
 import com.bmzx.platform.core.infrastructure.log.PlatformLog;
 import com.bmzx.platform.core.infrastructure.log.PlatformLogFactory;
 import com.bmzx.platform.core.infrastructure.util.JsonUtils;
@@ -20,15 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PlatformCommonController extends PlatformBaseController {
 
   private static final PlatformLog log= PlatformLogFactory.getLog(PlatformCommonController.class);
-  @Autowired
-  public PlatformCommonControllerService platformCommonControllerService;
+
 
   @RequestMapping("/save")
   @ResponseBody
   public PlatformOutBean save() {
     PlatformParamBean paramBean = super.paramBean;
     log.info("Save method receive parameters as:"+ JsonUtils.obj2String(paramBean));
-    PlatformOutBean outBean = platformCommonControllerService.save(paramBean);
+
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
 
     return outBean;
@@ -39,7 +40,7 @@ public class PlatformCommonController extends PlatformBaseController {
   public PlatformOutBean batchSave() {
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.batchSave(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
     return outBean;
   }
@@ -49,7 +50,7 @@ public class PlatformCommonController extends PlatformBaseController {
   public PlatformOutBean delete() {
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.delete(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
     return outBean;
   }
@@ -60,7 +61,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.batchDelete(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
     return outBean;
   }
@@ -71,7 +72,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.batchUpdate(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
     return outBean;
   }
@@ -82,7 +83,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.imp(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.write(paramBean);
 
     return outBean;
   }
@@ -93,7 +94,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.exprot(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.query(paramBean);
 
     return outBean;
   }
@@ -104,7 +105,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.load(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.query(paramBean);
 
     return outBean;
   }
@@ -115,7 +116,7 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.query(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.query(paramBean);
     return outBean;
   }
 
@@ -125,8 +126,11 @@ public class PlatformCommonController extends PlatformBaseController {
 
     PlatformParamBean paramBean = super.paramBean;
 
-    PlatformOutBean outBean = platformCommonControllerService.list(paramBean);
+    PlatformOutBean outBean = PlatformApplicationFactory.query(paramBean);
 
     return outBean;
   }
+
+
+
 }

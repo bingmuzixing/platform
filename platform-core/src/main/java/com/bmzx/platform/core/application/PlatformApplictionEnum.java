@@ -3,7 +3,7 @@ package com.bmzx.platform.core.application;
 /**
  * 定义应用层的没举行
  */
-public enum ApplictionEnum {
+public enum PlatformApplictionEnum {
 
     SAVE,
     UPDATE,
